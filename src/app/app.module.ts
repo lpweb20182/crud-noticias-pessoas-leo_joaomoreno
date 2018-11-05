@@ -4,7 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { HttpClientModule } from '@angular/common/http';
-
+import {SplitButtonModule} from 'primeng/splitbutton';
 import { AppComponent } from './app.component';
 import { NoticiasRecentesComponent } from './noticias-recentes/noticias-recentes.component';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
@@ -18,6 +18,12 @@ import { AutenticacaoGuard } from './autenticacao.guard';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { AdminNoticiasComponent } from './admin-noticias/admin-noticias.component';
 import { AdminCadastrarNoticiaComponent } from './admin-cadastrar-noticia/admin-cadastrar-noticia.component';
+import { AdminCadastrarPessoaComponent } from './admin-cadastrar-pessoa/admin-cadastrar-pessoa.component';
+import { AdminPessoasComponent } from './admin-pessoas/admin-pessoas.component';
+import { AdminEditarPessoaComponent } from './admin-editar-pessoa/admin-editar-pessoa.component';
+import { AdminEditarNoticiaComponent } from './admin-editar-noticia/admin-editar-noticia.component';
+import {AccordionModule} from 'primeng/accordion';
+import {MenuItem} from 'primeng/api';
 
 const rotas: Routes = [
   { path: 'noticias/:id', component: LeitorDeNoticiaComponent, },
@@ -25,12 +31,16 @@ const rotas: Routes = [
   { path: 'sobre', component: SobreComponent, },
   { path: 'login', component: LoginComponent, },
   {
-    path: 'admin', component: AdminHomeComponent, 
-      canActivate: [AutenticacaoGuard], 
-      canActivateChild: [AutenticacaoGuard], 
+    path: 'admin', component: AdminHomeComponent,
+      canActivate: [AutenticacaoGuard],
+      canActivateChild: [AutenticacaoGuard],
       children: [
       { path: 'noticias/cadastrar', component: AdminCadastrarNoticiaComponent },
+      { path: 'noticias/editar/:id', component: AdminEditarNoticiaComponent},
       { path: 'noticias', component: AdminNoticiasComponent },
+      { path: 'pessoas/cadastrar', component: AdminCadastrarPessoaComponent},
+      { path: 'pessoas/editar/:id', component: AdminEditarPessoaComponent},
+      { path: 'pessoas', component: AdminPessoasComponent},
       { path: '', component: AdminDashboardComponent }
     ]
   },
@@ -51,14 +61,19 @@ const rotas: Routes = [
     AdminHomeComponent,
     AdminDashboardComponent,
     AdminNoticiasComponent,
-    AdminCadastrarNoticiaComponent
+    AdminCadastrarNoticiaComponent,
+    AdminCadastrarPessoaComponent,
+    AdminPessoasComponent,
+    AdminEditarPessoaComponent,
+    AdminEditarNoticiaComponent
   ],
   imports: [
     NgbModule,
     BrowserModule,
     FormsModule,
     RouterModule.forRoot(rotas),
-    HttpClientModule
+    HttpClientModule,
+    SplitButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
